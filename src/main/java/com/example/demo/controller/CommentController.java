@@ -13,7 +13,7 @@ import java.util.List;
  * Comment Controller constructor
  */
 
-@CrossOrigin(origins = {"http://localhost:3000", "http://revconnect.azurewebsites.net"})
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 public class CommentController {
     private CommentService commentService;
