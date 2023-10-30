@@ -1,0 +1,29 @@
+Account
+{
+    "accountId": 1,
+    "firstName": null,
+    "lastName": null,
+    "accountName": null,
+    "password": null,
+    "email": null,
+    "phoneNumber": null,
+    "role": null,
+    "disabled": false
+}
+
+Post
+{
+    "postId": 1,
+    "account": null,
+    "contentImageUrl": null,
+    "contentText": null,
+    "likes": 0,
+    "comments": []
+}
+
+Comment
+{
+    "commentId": 1,
+    "account": null,
+    "comment": null
+}
