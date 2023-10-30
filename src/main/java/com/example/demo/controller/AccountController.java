@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@CrossOrigin(origins = {"http://localhost:3000", "http://revconnect.azurewebsites.net"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://revconnectdb2.azurewebsites.net"})
 @RestController
 public class AccountController {
     //Instantiating 'accountService' object
@@ -75,7 +75,7 @@ public class AccountController {
      * @param submittedAccount The account to be registered.
      * @return
      */
-    @PostMapping("/account/register")
+    @PostMapping("/register")
     public ResponseEntity<Account> register(@RequestBody Account submittedAccount) {
         Account account = this.accountService.register(submittedAccount);
         HttpStatus status = HttpStatus.CREATED;
