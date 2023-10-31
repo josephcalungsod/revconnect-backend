@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Account;
 import com.example.demo.entity.Post;
 import com.example.demo.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,8 +56,15 @@ public class PostController {
      * @param post The post to be created, provided as JSON in the request body.
      */
     @PostMapping("/post")
-    public Post addPost(@RequestBody Post post) {
-        return this.postService.addPost(post);
+    public ResponseEntity<Post> addPost(@RequestBody Post post) {
+        Post addedPost = this.postService.addPost(post);
+        HttpStatus status = HttpStatus.CREATED;
+
+        if(addedPost == null) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+        
+        return new ResponseEntity<Post>(addedPost, status);
     }
 
     /**
@@ -76,8 +86,15 @@ public class PostController {
      * @param password The password of that account. (Sent via the "password" request header)
      */
     @PutMapping("/post")
-    public Post updatePost(@RequestBody Post post, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
-        return this.postService.updatePost(post, accountName, password);
+    public ResponseEntity<Post> updatePost(@RequestBody Post post, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
+        Post updatedPost = this.postService.updatePost(post, accountName, password);
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+        if(updatedPost == null) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+        
+        return new ResponseEntity<Post>(updatedPost, status);
     }
 
     /**
@@ -100,6 +117,12 @@ public class PostController {
     public void deletePost(@RequestBody Post post, @RequestHeader("account-name") String accountName, @RequestHeader("password") String password) {
         this.postService.deletePost(post, accountName, password);
     }
+
+    /**
+     * 
+     * @param postId
+     * @param numberOfLikes
+     */
     @PutMapping("/post/{postId}/{numberOfLikes}")
     public void updatePostLikes(@PathVariable("postId") long postId, @PathVariable("numberOfLikes") int numberOfLikes){
         this.postService.updatePostLikes(postId, numberOfLikes);
