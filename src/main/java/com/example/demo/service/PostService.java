@@ -59,6 +59,10 @@ public class PostService {
             return null;
         }
 
+        if(post.getImageUrl().isEmpty() || post.getDescription().isEmpty()) {
+            return null;
+        }
+
         Optional<Account> account = this.accountRepository.findById(post.getAccount().getAccountId());
         
         if(!account.isPresent()) {
