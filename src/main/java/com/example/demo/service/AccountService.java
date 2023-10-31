@@ -126,6 +126,10 @@ public class AccountService {
             accountToUpdate.setAccountName(updatedAccount.getAccountName());
         }
 
+        if(updatedAccount.getPassword() != null) {
+            accountToUpdate.setPassword(updatedAccount.getPassword());
+        }
+
         if(updatedAccount.getEmail() != null) {
             accountToUpdate.setEmail(updatedAccount.getEmail());
         }

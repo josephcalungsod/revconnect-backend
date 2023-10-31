@@ -4,6 +4,8 @@ import com.example.demo.entity.Comment;
 import com.example.demo.service.CommentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -72,8 +74,15 @@ public class CommentController {
      * @return The comment that was posted.
      */
     @PostMapping("post/{id}/comment")
-    public Comment addComment(@PathVariable long id, @RequestBody Comment comment) {
-        return this.commentService.addComment(comment, id);
+    public ResponseEntity<Comment> addComment(@PathVariable long id, @RequestBody Comment comment) {
+        Comment addedComment = this.commentService.addComment(comment, id);
+        HttpStatus status = HttpStatus.CREATED;
+
+        if(addedComment == null) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+
+        return new ResponseEntity<Comment>(addedComment, status);
     }
 
     /**
@@ -87,10 +96,17 @@ public class CommentController {
      *
      */
     @PutMapping("post/{id}/comment")
-    public Comment updateComment(@PathVariable long id, @RequestBody Comment comment, 
+    public ResponseEntity<Comment> updateComment(@PathVariable long id, @RequestBody Comment comment, 
       @RequestHeader("account-name") String accountName, 
       @RequestHeader("password") String password) {
-        return this.commentService.updateComment(id, comment, accountName, password);
+        Comment updatedComment = this.commentService.updateComment(id, comment, accountName, password);
+        HttpStatus status = HttpStatus.CREATED;
+
+        if(updatedComment == null) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+
+        return new ResponseEntity<Comment>(updatedComment, status);
     }
 
     /**
