@@ -65,6 +65,10 @@ public class PostService {
             return null;
         }
 
+        if(post.getDescription() == null) {
+            return null;
+        }
+
         post.setAccount(account.get());
         post.setNumberOfLikes(0);
 
