@@ -31,6 +31,11 @@ public class AccountController {
         return accountService.getAllAccounts();
     }
 
+    @GetMapping("/account/{accountName}")
+    public Account getAccountByAccountName(@PathVariable("accountName") String accountName){
+        return accountService.getAccountByAccountName(accountName);
+    }
+
     /**
      * 
      * 
